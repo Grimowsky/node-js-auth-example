@@ -1,10 +1,6 @@
-import * as express from 'express';
-import { exampleController } from '../Controllers/exampleController';
+import { Router } from 'express';
+import authController from '../Controllers/authController';
 
-export const createRouter = (): express.Router => {
-    const router = express.Router();
+const apiV1 = Router().use(authController);
 
-    router.get('/example', exampleController);
-
-    return router;
-};
+export default apiV1;
