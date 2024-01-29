@@ -1,0 +1,27 @@
+{
+  "displayName": "Unit Tests",
+  "roots": [
+    "src/"
+  ],
+  "collectCoverageFrom": ["scr/**/*.{js,ts}"],
+  "testEnvironment": "node",
+  "coveragePathIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "moduleFileExtensions": [
+    "js",
+    "ts",
+    "tsx"
+  ],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  "coverageReporters": [
+    "json",
+    "json-summary",
+    "lcov",
+    "text",
+    "clover"
+  ],
+  "coverageDirectory": "reports/coverage"
+}
