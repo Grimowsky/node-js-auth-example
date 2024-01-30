@@ -51,6 +51,7 @@
   "dependencies": {
     "@prisma/client": "^5.8.1",
     "@types/jest": "^29.5.11",
+    "@types/jsonwebtoken": "^9.0.5",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "dotenv-safe": "^8.2.0",

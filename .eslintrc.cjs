@@ -23,6 +23,10 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'import/extensions': 'off',
+    '@typescript-eslint/await-thenable': 'off',
+    '@typescript-eslint/no-throw-literal': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off',
+    'import/no-named-as-default-member': 'off',
     "@typescript-eslint/strict-boolean-expressions": "off",
     '@typescript-eslint/prefer-nullish-coalescing': "off",
     "@typescript-eslint/no-misused-promises": "off"
