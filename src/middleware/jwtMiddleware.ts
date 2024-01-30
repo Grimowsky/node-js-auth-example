@@ -5,7 +5,6 @@ import {
     type AppReq,
     type AppRes,
 } from '../common/types/Request.type';
-import { ExtendedError } from '../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 
 const SECRET = process.env.JWT_SECRET || 'secretKey';
@@ -14,26 +13,31 @@ const createToken = (): string => {
     return JWT.sign({ data: 'example' }, SECRET, { expiresIn: '1h' });
 };
 
-const verifyToken = async (
-    req: AppReq,
-    _res: AppRes,
-    next: AppNext
-): Promise<void> => {
-    const token = req?.headers?.authorization?.split(' ')[1];
-
-    console.log('@@@@ was here');
-
-    if (!token) {
-        throw ExtendedError.of('Unauthorized', StatusCodes.UNAUTHORIZED);
-    }
-
-    JWT.verify(token, SECRET, async (err) => {
-        if (err) {
-            throw new ExtendedError(err?.message, StatusCodes.UNAUTHORIZED);
-        }
-    });
-
-    next();
+const verifyAccessToken = (token: string) => {
+    return JWT.verify(token, SECRET);
 };
 
-export default { createToken, verifyToken };
+const authenticateToken = async (
+    req: AppReq,
+    res: AppRes,
+    next: AppNext
+): Promise<AppRes | undefined> => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(' ')[1] || '';
+    if (!token) {
+        return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .send({ message: 'Unauthorized' });
+    }
+    try {
+        verifyAccessToken(token);
+        next();
+    } catch (error) {
+        const jwtError = error as JWT.VerifyErrors;
+        return res
+            .status(StatusCodes.FORBIDDEN)
+            .send({ message: jwtError?.message || 'Forbidden' });
+    }
+};
+
+export default { createToken, authenticateToken };
