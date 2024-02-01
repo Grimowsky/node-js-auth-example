@@ -8,6 +8,7 @@ import {
 
 export const errorHandler =
     () => (error: AppErr, _req: AppReq, res: AppRes, _next: AppNext) => {
+        console.log('error handler');
         const statusErrorCode = error?.statusCode ?? error?.status;
 
         if (statusErrorCode != null) {

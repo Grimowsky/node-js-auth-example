@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { errorHandler } from './utils/error/error';
 import dotenv from 'dotenv-safe';
-import apiV1 from './api/rest/v1/Routes/routes';
+import apiV1 from './api/rest/v1/Routes/_routes';
 
 dotenv.config();
 
