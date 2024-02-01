@@ -6,6 +6,7 @@ import {
     type AppRes,
 } from '../common/types/Request.type';
 import { StatusCodes } from 'http-status-codes';
+import { type JwtPayload } from 'jsonwebtoken';
 
 const SECRET = process.env.JWT_SECRET || 'secretKey';
 
@@ -13,7 +14,7 @@ const createToken = (): string => {
     return JWT.sign({ data: 'example' }, SECRET, { expiresIn: '1h' });
 };
 
-const verifyAccessToken = (token: string) => {
+const verifyAccessToken = (token: string): JwtPayload | string => {
     return JWT.verify(token, SECRET);
 };
 
@@ -23,7 +24,7 @@ const authenticateToken = async (
     next: AppNext
 ): Promise<AppRes | undefined> => {
     const authHeader = req.headers.authorization;
-    const token = authHeader?.split(' ')[1] || '';
+    const token = authHeader?.split(' ')[1];
     if (!token) {
         return res
             .status(StatusCodes.UNAUTHORIZED)

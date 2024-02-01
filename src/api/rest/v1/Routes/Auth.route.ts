@@ -1,17 +1,11 @@
 import * as express from 'express';
 import { asyncWrapper } from '../../../../middleware/asyncWrapper';
-import AuthController from '../Controllers/Auth.controller';
-import JWTMiddleware from '../../../../middleware/jwtMiddleware';
-
+import * as AuthController from '../Controllers/Auth.controller';
 const createRouter = (): express.Router => {
     const router = express.Router();
 
-    router.use('/login', asyncWrapper(AuthController.loginController));
-    router.use(
-        '/token/verify',
-        JWTMiddleware.authenticateToken,
-        asyncWrapper(AuthController.someController)
-    );
+    router.post('/login', asyncWrapper(AuthController.login));
+    router.post('/logout', asyncWrapper(AuthController.login));
 
     return router;
 };
