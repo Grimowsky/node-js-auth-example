@@ -1,6 +1,11 @@
-import type { AppReq, AppRes } from '../../../../common/types/Request.type';
+import type { AppRes } from '../../../../common/types/Request.type';
 
-const register = async (req: AppReq, res: AppRes): Promise<void> => {
+export interface User {
+    email: string;
+    username: string;
+    password: string;
+}
+const register = async (userData: User, res: AppRes): Promise<void> => {
     res.status(200).send({ ok: true });
 };
 

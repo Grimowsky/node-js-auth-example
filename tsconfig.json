@@ -11,10 +11,15 @@
     "strict": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@controllers/*": ["./api/rest/v1/Controllers/*"],
+      "@routes/*": ["./api/rest/v1/Routes/*"],
+      "@repository/*": ["./repository/*"]
+    }
   },
   "ts-node": {
     "esm": true,
