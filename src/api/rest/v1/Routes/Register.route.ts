@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as RegistrationController from '../Controllers/Registration.controller';
+import RegistrationController from '@controllers/RegistrationController';
 const createRouter = (): express.Router => {
     const router = express.Router();
     router.post('/register', RegistrationController.register);
