@@ -10,6 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// prisma repo generator
+generator repo {
+  provider = "prisma-repo"
+  output   = "../repository"
+  query    = true
+  warn     = true
+  info     = true
+  error    = true
+}
+
 model User {
   id Int @id @default(autoincrement())
   email String @unique
