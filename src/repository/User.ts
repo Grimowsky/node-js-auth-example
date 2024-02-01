@@ -1,7 +1,17 @@
 import prisma from '../prisma/prisma-client';
 import type { User } from '@services//User/User.type';
+
+const USER = prisma.user;
 const create = async (userData: User): Promise<User> => {
-    return await prisma.user.create({ data: userData });
+    return await USER.create({ data: userData });
 };
 
-export default { create };
+const findByEmail = async (email: string): Promise<User | null> => {
+    return await USER.findUnique({ where: { email } });
+};
+
+const findByUserName = async (username: string): Promise<User | null> => {
+    return await USER.findUnique({ where: { username } });
+};
+
+export default { create, findByEmail, findByUserName };
