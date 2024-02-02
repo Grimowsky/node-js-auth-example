@@ -16,7 +16,10 @@ const login = async ({
     });
 
     if (!userDetails) {
-        throw ExtendedError.of('Invalid user details', StatusCodes.BAD_REQUEST);
+        throw ExtendedError.of(
+            'Username or password is invalid',
+            StatusCodes.UNAUTHORIZED
+        );
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -24,7 +27,10 @@ const login = async ({
         userDetails.password
     );
     if (!isValidPassword) {
-        throw ExtendedError.of('Invalid password', StatusCodes.BAD_REQUEST);
+        throw ExtendedError.of(
+            'Username or Password is invalid',
+            StatusCodes.UNAUTHORIZED
+        );
     }
 
     const token = JwtMiddleware.createToken({
