@@ -11,14 +11,21 @@
     "strict": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@controllers/*": ["./api/rest/v1/Controllers/*"],
+      "@routes/*": ["./api/rest/v1/Routes/*"],
+      "@repository/*": ["./repository/*"],
+      "@services/*": ["./services/*"]
+    }
   },
   "ts-node": {
     "esm": true,
+    "require": ["tsconfig-paths/register"]
   },
   "exclude": ["node_modules", ".idea", "lib", "coverage"],
-  "include": ["src"]
+  "include": ["src", "./src"]
 }

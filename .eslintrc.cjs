@@ -32,8 +32,8 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": "off"
   },
   settings: {
-    'import/parsers': {
-      '@typescript-eslint/parser': ['.ts']
+    "import/resolver": {
+      "typescript": {}
     }
-  }
+  },
 }
