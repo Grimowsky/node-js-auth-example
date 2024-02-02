@@ -1,18 +1,15 @@
 import { type User } from '@services/User/User.type';
-import UserRepository from '@repository/User';
 import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
+import prisma from '../../prisma/prisma-client';
 
-// user request
-// username || email exits -> error
-// register with encrypted password
-
+const USER = prisma.user;
 const register = async (data: User): Promise<User> => {
-    if (
-        (await UserRepository.findByEmail(data.email)) ||
-        (await UserRepository.findByUserName(data.username))
-    ) {
+    const user =
+        (await USER.findUnique({ where: { email: data.username } })) ||
+        (await USER.findUnique({ where: { username: data.username } }));
+    if (user) {
         throw ExtendedError.of(
             'Username or email has been taken',
             StatusCodes.BAD_REQUEST
@@ -24,7 +21,7 @@ const register = async (data: User): Promise<User> => {
         password: await bcrypt.hash(data.password, 10),
     };
 
-    return await UserRepository.create(userWithHashedPass);
+    return await USER.create({ data: userWithHashedPass });
 };
 
 const userService = { register };
