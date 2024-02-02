@@ -14,7 +14,7 @@ const validateRequestMiddleware =
             });
         } catch (e) {
             throw ExtendedError.of(
-                'register validation error',
+                'zod request validation error',
                 StatusCodes.BAD_REQUEST
             );
         }
