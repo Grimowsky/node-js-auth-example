@@ -5,7 +5,6 @@ const createRouter = (): express.Router => {
     const router = express.Router();
 
     router.post('/login', asyncWrapper(AuthController.login));
-    router.post('/logout', asyncWrapper(AuthController.login));
 
     return router;
 };

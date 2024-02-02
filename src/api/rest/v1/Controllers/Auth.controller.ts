@@ -2,14 +2,12 @@ import {
     type AppReq,
     type AppRes,
 } from '../../../../common/types/Request.type';
-import JwtMiddleware from '../../../../middleware/jwtMiddleware';
+import { type LoginReq } from '@services/Auth/Auth.type';
+import AuthService from '@services/Auth/Auth.service';
 
-const login = async (req: AppReq, res: AppRes): Promise<void> => {
-    res.status(200).send({ token: JwtMiddleware.createToken() });
+const login = async (loginData: AppReq, res: AppRes): Promise<void> => {
+    const loginDetails = await AuthService.login(loginData.body as LoginReq);
+    res.status(200).send(loginDetails);
 };
 
-const logout = async (req: AppReq, res: AppRes): Promise<void> => {
-    res.status(200).send({ message: 'logged out' });
-};
-
-export { login, logout };
+export { login };

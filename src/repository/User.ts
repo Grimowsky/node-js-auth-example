@@ -14,4 +14,5 @@ const findByUserName = async (username: string): Promise<User | null> => {
     return await USER.findUnique({ where: { username } });
 };
 
-export default { create, findByEmail, findByUserName };
+const UserRepository = { create, findByEmail, findByUserName };
+export default UserRepository;

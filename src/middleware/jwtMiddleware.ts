@@ -7,11 +7,12 @@ import {
 } from '../common/types/Request.type';
 import { StatusCodes } from 'http-status-codes';
 import { type JwtPayload } from 'jsonwebtoken';
+import { type User } from '@services/User/User.type';
 
 const SECRET = process.env.JWT_SECRET || 'secretKey';
 
-const createToken = (): string => {
-    return JWT.sign({ data: 'example' }, SECRET, { expiresIn: '1h' });
+const createToken = (data: Partial<User & { id: string }>): string => {
+    return JWT.sign({ data }, SECRET, { expiresIn: '1h' });
 };
 
 const verifyAccessToken = (token: string): JwtPayload | string => {
@@ -41,4 +42,6 @@ const authenticateToken = async (
     }
 };
 
-export default { createToken, authenticateToken };
+const JwtMiddleware = { createToken };
+
+export default JwtMiddleware;
