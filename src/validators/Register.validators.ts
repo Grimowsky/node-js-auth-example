@@ -8,4 +8,6 @@ const UserRegisterSchema = z.object({
     }),
 });
 
-export { UserRegisterSchema };
+const RegisterSchemas = { UserRegisterSchema };
+
+export default RegisterSchemas;
