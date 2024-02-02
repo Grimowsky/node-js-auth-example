@@ -2,7 +2,7 @@ import {
     type AppReq,
     type AppRes,
 } from '../../../../common/types/Request.type';
-import { type LoginReq } from '@services/Auth/Auth.type';
+import { type LoginReq, type RefreshTokenReq } from '@services/Auth/Auth.type';
 import AuthService from '@services/Auth/Auth.service';
 
 const login = async (loginData: AppReq, res: AppRes): Promise<void> => {
@@ -10,4 +10,12 @@ const login = async (loginData: AppReq, res: AppRes): Promise<void> => {
     res.status(200).send(loginDetails);
 };
 
-export { login };
+const refreshToken = async (req: AppReq, res: AppRes): Promise<void> => {
+    const newTokens = await AuthService.refreshToken(
+        req?.body as RefreshTokenReq
+    );
+
+    res.status(200).send(newTokens);
+};
+
+export { login, refreshToken };

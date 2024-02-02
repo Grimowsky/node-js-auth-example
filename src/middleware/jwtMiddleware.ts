@@ -11,21 +11,38 @@ import { type User } from '@services/User/User.type';
 
 const SECRET = process.env.JWT_SECRET || 'secretKey';
 
-const createToken = (data: Partial<User & { id: string }>): string => {
+type TokenData = Partial<User> & { id: string };
+
+interface DecodedTokenData {
+    data: {
+        username: string;
+        id: string;
+    };
+    iat: number;
+    exp: number;
+}
+const createToken = (data: TokenData): string => {
     return JWT.sign({ data }, SECRET, { expiresIn: '1h' });
+};
+
+const createRefreshToken = (data: TokenData): string => {
+    return JWT.sign({ data }, SECRET, { expiresIn: '2h' });
 };
 
 const verifyAccessToken = (token: string): JwtPayload | string => {
     return JWT.verify(token, SECRET);
 };
 
+const decodeUserFromToken = (token: string): DecodedTokenData => {
+    return JWT.decode(token) as DecodedTokenData;
+};
+
 const authenticateToken = async (
-    req: AppReq,
+    _req: AppReq,
     res: AppRes,
-    next: AppNext
+    next: AppNext,
+    { token }: { token: string | undefined }
 ): Promise<AppRes | undefined> => {
-    const authHeader = req.headers.authorization;
-    const token = authHeader?.split(' ')[1];
     if (!token) {
         return res
             .status(StatusCodes.UNAUTHORIZED)
@@ -42,6 +59,44 @@ const authenticateToken = async (
     }
 };
 
-const JwtMiddleware = { createToken };
+const verifyAuthToken = async (
+    req: AppReq,
+    res: AppRes,
+    next: AppNext
+): Promise<AppRes | undefined> => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .send({ message: 'Authorization header is missing' });
+    }
+    const token = authHeader.split(' ')[1];
+
+    if (!token) {
+        return res
+            .status(StatusCodes.UNAUTHORIZED)
+            .send({ message: 'Token is missing in the Authorization header' });
+    }
+
+    await authenticateToken(req, res, next, { token });
+};
+
+const verifyRefreshToken = async (
+    req: AppReq,
+    res: AppRes,
+    next: AppNext
+): Promise<void> => {
+    const token = req?.body?.refreshToken;
+
+    await authenticateToken(req, res, next, { token });
+};
+
+const JwtMiddleware = {
+    createToken,
+    createRefreshToken,
+    verifyAuthToken,
+    verifyRefreshToken,
+    decodeUserFromToken,
+};
 
 export default JwtMiddleware;

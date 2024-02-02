@@ -1,4 +1,9 @@
-import { type LoginReq, type LoginResponse } from '@services/Auth/Auth.type';
+import {
+    type LoginReq,
+    type LoginResponse,
+    type RefreshTokenReq,
+    type RefreshTokenResponse,
+} from '@services/Auth/Auth.type';
 import prisma from '../../prisma/prisma-client';
 import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
@@ -35,11 +40,50 @@ const login = async ({
 
     const token = JwtMiddleware.createToken({
         username: userDetails.username,
-        email: userDetails.email,
+        id: userDetails.id.toString(),
     });
-    return { token };
+
+    const refreshToken = JwtMiddleware.createRefreshToken({
+        username: userDetails.username,
+        id: userDetails.id.toString(),
+    });
+
+    return { token, refreshToken };
 };
 
-const AuthService = { login };
+const refreshToken = async (
+    payload: RefreshTokenReq
+): Promise<RefreshTokenResponse> => {
+    const decodedToken = JwtMiddleware.decodeUserFromToken(
+        payload.refreshToken
+    );
+
+    const userDetails = await USER_REPO.findUnique({
+        where: {
+            id: Number(decodedToken.data.id),
+        },
+        select: {
+            username: true,
+            id: true,
+        },
+    });
+
+    if (!userDetails) {
+        throw ExtendedError.of('User not found', StatusCodes.UNAUTHORIZED);
+    }
+
+    const authToken = JwtMiddleware.createToken({
+        username: userDetails.username,
+        id: userDetails.id.toString(),
+    });
+
+    const refreshToken = JwtMiddleware.createRefreshToken({
+        username: userDetails.username,
+        id: userDetails.id.toString(),
+    });
+    return { token: authToken, refreshToken };
+};
+
+const AuthService = { login, refreshToken };
 
 export default AuthService;
