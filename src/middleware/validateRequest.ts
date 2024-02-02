@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const validateRequestMiddleware =
     (schema: AnyZodObject) =>
-    async (req: AppReq, res: AppRes, next: AppNext) => {
+    async (req: AppReq, _res: AppRes, next: AppNext) => {
         try {
             await schema.parseAsync({
                 body: req.body,
@@ -13,8 +13,13 @@ const validateRequestMiddleware =
                 params: req.params,
             });
         } catch (e) {
-            throw ExtendedError.of('bad request', StatusCodes.BAD_REQUEST);
+            throw ExtendedError.of(
+                'register validation error',
+                StatusCodes.BAD_REQUEST
+            );
         }
+
+        next();
     };
 
 export default validateRequestMiddleware;
