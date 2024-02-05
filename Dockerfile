@@ -12,11 +12,11 @@ RUN npm ci
 COPY . /
 CMD ["node"]
 
-#FROM base as dev
-#ENV NODE_ENV=development
-#RUN npm install -g nodemon && npm install
-#COPY . .
-#
-#RUN npx prisma generate
+FROM base as dev
+ENV NODE_ENV=development
+RUN npm install -g nodemon && npm install
+COPY . .
+
+RUN npx prisma generate
 
 
