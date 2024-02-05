@@ -8,6 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 
 export const errorHandler =
     () => (error: AppErr, _req: AppReq, res: AppRes, _next: AppNext) => {
+        console.log('!!!', error);
         const statusErrorCode = error?.statusCode ?? error?.status;
 
         if (statusErrorCode != null) {

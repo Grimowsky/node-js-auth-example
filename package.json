@@ -8,6 +8,7 @@
     "tsc": "tsc",
     "build": "tsc -p tsconfig.prod.json",
     "start:dev": "nodemon -L ./src/index.ts",
+    "start:docker": "npx prisma migrate dev && nodemon -L ./src/index.ts",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "lint:fix": "npm run-script lint -- --fix",
     "test": "jest",
