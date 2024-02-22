@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier', 'import'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'off',
     'import/extensions': 'off',
     '@typescript-eslint/await-thenable': 'off',
     '@typescript-eslint/no-throw-literal': 'off',

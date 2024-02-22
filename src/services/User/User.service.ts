@@ -11,7 +11,7 @@ const register = async (data: User): Promise<User> => {
         (await USER.findUnique({ where: { username: data.username } }));
     if (user) {
         throw ExtendedError.of(
-            'Username or email has been taken',
+            'Username or emails has been taken',
             StatusCodes.BAD_REQUEST
         );
     }

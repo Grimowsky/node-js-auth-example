@@ -19,7 +19,7 @@ export const errorHandler =
         } else {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error: {
-                    message: 'Internal Server Error',
+                    message: 'Internal Server Error occured',
                 },
             });
         }
