@@ -127,7 +127,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/app/src/prisma/client",
+      "value": "C:\\Users\\Admin\\Documents\\Projects\\backend-learning\\node-js-auth-example\\src\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -136,7 +136,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "linux-musl-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
@@ -154,7 +154,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -164,8 +163,7 @@ const config = {
     }
   },
   "inlineSchema": "Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwNCiAgLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQ0KDQpnZW5lcmF0b3IgY2xpZW50IHsNCiAgcHJvdmlkZXIgPSAicHJpc21hLWNsaWVudC1qcyINCiAgb3V0cHV0ID0gIi4uL3NyYy9wcmlzbWEvY2xpZW50Ig0KfQ0KDQpkYXRhc291cmNlIGRiIHsNCiAgcHJvdmlkZXIgPSAicG9zdGdyZXNxbCINCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpDQp9DQoNCm1vZGVsIHVzZXIgew0KICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkNCiAgZW1haWwgU3RyaW5nIEB1bmlxdWUNCiAgdXNlcm5hbWUgU3RyaW5nIEB1bmlxdWUNCiAgcGFzc3dvcmQgU3RyaW5nDQogIHJvbGVJZCBJbnQNCiAgcm9sZSByb2xlIEByZWxhdGlvbihmaWVsZHM6IFtyb2xlSWRdLCByZWZlcmVuY2VzOiBbaWRdKQ0KfQ0KDQptb2RlbCByb2xlIHsNCiAgaWQgSW50IEBpZCBAZGVmYXVsdChhdXRvaW5jcmVtZW50KCkpDQogIG5hbWUgU3RyaW5nIEB1bmlxdWUNCiAgdXNlcnMgdXNlcltdDQp9DQo=",
-  "inlineSchemaHash": "9a64102bd837f52a28d5453dc13054d0d3c87a19076eabf9556b9508186e5f21",
-  "noEngine": false
+  "inlineSchemaHash": "9a64102bd837f52a28d5453dc13054d0d3c87a19076eabf9556b9508186e5f21"
 }
 
 const fs = require('fs')
@@ -202,8 +200,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-linux-musl-openssl-3.0.x.so.node");
-path.join(process.cwd(), "src/prisma/client/libquery_engine-linux-musl-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "src/prisma/client/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/prisma/client/schema.prisma")
