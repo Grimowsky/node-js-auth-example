@@ -4,7 +4,7 @@ import {
     type RefreshTokenReq,
     type RefreshTokenResponse,
 } from '@services/Auth/Auth.type';
-import prisma from '../../prisma/prisma-client';
+import prisma from '../../../prisma/prisma-client';
 import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';

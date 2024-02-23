@@ -2,7 +2,7 @@ import { type User } from '@services/User/User.type';
 import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
-import prisma from '../../prisma/prisma-client';
+import prisma from '../../../prisma/prisma-client';
 
 const USER = prisma.user;
 const ROLES = prisma.role;

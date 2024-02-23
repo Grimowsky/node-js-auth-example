@@ -34,7 +34,7 @@ services:
       target: dev
     volumes:
       - ./src:/app/src
-      - ./node_modules/prisma/client
+      - ./prisma:/app/prisma
     command: "npm run start:docker"
     ports:
       - "8080:8080"
