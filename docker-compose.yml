@@ -23,7 +23,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - DATABASE_URL="postgresql://postgres:@postgres:5432/postgres?schema=public&connect_timeout=3000"
+      - DATABASE_URL=postgresql://postgres:@postgres:5432/postgres?schema=public&connect_timeout=3000
 
   backend-app:
     depends_on:
