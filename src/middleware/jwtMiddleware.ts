@@ -8,15 +8,17 @@ import {
 import { StatusCodes } from 'http-status-codes';
 import { type JwtPayload } from 'jsonwebtoken';
 import { type User } from '@services/User/User.type';
+import { type Role } from '../common/types/roles.type';
 
 const SECRET = process.env.JWT_SECRET || 'secretKey';
 
-type TokenData = Partial<User> & { id: string };
+type TokenData = Partial<User> & { id: string; role: Role };
 
 interface DecodedTokenData {
     data: {
         username: string;
         id: string;
+        role: Role;
     };
     iat: number;
     exp: number;
