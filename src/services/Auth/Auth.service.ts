@@ -9,6 +9,7 @@ import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
 import JwtMiddleware from '../../middleware/jwtMiddleware';
 import { PrismaClient } from '../../prisma/client';
+import { type Role } from '../../common/types/roles.type';
 
 const prisma = new PrismaClient();
 const login = async ({
@@ -17,7 +18,13 @@ const login = async ({
 }: LoginReq): Promise<LoginResponse> => {
     const userDetails = await prisma.user.findUnique({
         where: { username },
-        select: { password: true, username: true, id: true, email: true },
+        select: {
+            password: true,
+            username: true,
+            id: true,
+            email: true,
+            role: true,
+        },
     });
 
     if (!userDetails) {
@@ -41,11 +48,13 @@ const login = async ({
     const token = JwtMiddleware.createToken({
         username: userDetails.username,
         id: userDetails.id.toString(),
+        role: userDetails.role.name as Role,
     });
 
     const refreshToken = JwtMiddleware.createRefreshToken({
         username: userDetails.username,
         id: userDetails.id.toString(),
+        role: userDetails.role.name as Role,
     });
 
     return { token, refreshToken };
@@ -65,6 +74,7 @@ const refreshToken = async (
         select: {
             username: true,
             id: true,
+            role: true,
         },
     });
 
@@ -75,11 +85,13 @@ const refreshToken = async (
     const authToken = JwtMiddleware.createToken({
         username: userDetails.username,
         id: userDetails.id.toString(),
+        role: userDetails.role.name as Role,
     });
 
     const refreshToken = JwtMiddleware.createRefreshToken({
         username: userDetails.username,
         id: userDetails.id.toString(),
+        role: userDetails.role.name as Role,
     });
     return { token: authToken, refreshToken };
 };
