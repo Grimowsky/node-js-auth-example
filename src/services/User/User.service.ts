@@ -5,10 +5,14 @@ import * as bcrypt from 'bcrypt';
 import prisma from '../../prisma/prisma-client';
 
 const USER = prisma.user;
+const ROLES = prisma.role;
 const register = async (data: User): Promise<User> => {
     const user =
         (await USER.findUnique({ where: { email: data.username } })) ||
         (await USER.findUnique({ where: { username: data.username } }));
+
+    const role = await ROLES.findFirstOrThrow({ where: { name: 'user' } });
+
     if (user) {
         throw ExtendedError.of(
             'Username or emails has been taken',
@@ -21,7 +25,9 @@ const register = async (data: User): Promise<User> => {
         password: await bcrypt.hash(data.password, 10),
     };
 
-    return await USER.create({ data: userWithHashedPass });
+    return await USER.create({
+        data: { ...userWithHashedPass, roleId: role.id },
+    });
 };
 
 const userService = { register };
