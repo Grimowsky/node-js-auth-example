@@ -27,5 +27,5 @@
     "require": ["tsconfig-paths/register"]
   },
   "exclude": ["node_modules", ".idea", "lib", "coverage"],
-  "include": ["src", "./src"]
+  "include": ["src", "./src", "prisma"]
 }
