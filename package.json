@@ -7,8 +7,12 @@
     "ts-node": "ts-node ./src/index.ts",
     "tsc": "tsc",
     "build": "tsc -p tsconfig.prod.json",
-    "start:dev": "nodemon -L ./src/index.ts",
-    "start:docker": "npx prisma migrate dev && nodemon -L ./src/index.ts",
+    "server:start": "nodemon -L ./src/index.ts",
+    "dev": "concurrently --kill-others \"npm run prisma:generate:dev\" \"npm run server:start\"",
+    "prisma:generate:dev": "prisma generate --watch",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:diff": "prisma migrate diff",
+    "prisma:migrate": "prisma migrate deploy",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "lint:fix": "npm run-script lint -- --fix",
     "test": "jest",
@@ -16,8 +20,8 @@
     "test:coverage": "jest --coverage --config jest.config.json"
   },
   "prisma": {
-    "seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} src/prisma/seed.ts",
-    "schema": "src/prisma/schema.prisma"
+    "seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
+    "schema": "prisma/schema.prisma"
   },
   "repository": {
     "type": "git",
@@ -58,6 +62,7 @@
     "@types/jest": "^29.5.11",
     "@types/jsonwebtoken": "^9.0.5",
     "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "dotenv-safe": "^8.2.0",

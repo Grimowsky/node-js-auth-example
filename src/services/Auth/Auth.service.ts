@@ -4,18 +4,18 @@ import {
     type RefreshTokenReq,
     type RefreshTokenResponse,
 } from '@services/Auth/Auth.type';
-import prisma from '../../prisma/prisma-client';
 import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
 import JwtMiddleware from '../../middleware/jwtMiddleware';
+import { PrismaClient } from '../../prisma/client';
 
-const USER_REPO = prisma.user;
+const prisma = new PrismaClient();
 const login = async ({
     username,
     password,
 }: LoginReq): Promise<LoginResponse> => {
-    const userDetails = await USER_REPO.findUnique({
+    const userDetails = await prisma.user.findUnique({
         where: { username },
         select: { password: true, username: true, id: true, email: true },
     });
@@ -58,7 +58,7 @@ const refreshToken = async (
         payload.refreshToken
     );
 
-    const userDetails = await USER_REPO.findUnique({
+    const userDetails = await prisma.user.findUnique({
         where: {
             id: Number(decodedToken.data.id),
         },
