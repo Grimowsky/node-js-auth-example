@@ -16,12 +16,6 @@
   "transform": {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
-  "coverageReporters": [
-    "json",
-    "json-summary",
-    "lcov",
-    "text",
-    "clover"
-  ],
+  "coverageReporters": ["text", "cobertura"],
   "coverageDirectory": "reports/coverage"
 }
