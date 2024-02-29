@@ -44,7 +44,7 @@ const createWinstonLogger = ({
         ],
     });
 
-export const logger = ({
+export const createLogger = ({
     showErrorStack = LOGGING_SHOW_ERROR_STACK,
     humanReadableJson = LOGGING_HUMAN_READABLE_JSON,
     level = LOG_LEVEL,
