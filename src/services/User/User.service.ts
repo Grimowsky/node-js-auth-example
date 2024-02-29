@@ -3,6 +3,7 @@ import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
 import { PrismaClient } from '../../prisma/client';
+import logger from '../../config/logger';
 
 const prisma = new PrismaClient();
 
@@ -16,6 +17,7 @@ const register = async (data: User): Promise<User> => {
     });
 
     if (user) {
+        logger.error('UserService.register: User already exists');
         throw ExtendedError.of(
             'Username or emails has been taken',
             StatusCodes.BAD_REQUEST

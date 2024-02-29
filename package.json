@@ -14,7 +14,7 @@
     "prisma:migrate:diff": "prisma migrate diff",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:seed": "npx prisma db seed",
-    "prisma:populate": "npm run prisma:generate && npm run prisma:seed",
+    "prisma:populate": "npm run prisma:migrate && npm run prisma:seed",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\"",
     "lint:fix": "npm run-script lint -- --fix",
     "test": "jest",

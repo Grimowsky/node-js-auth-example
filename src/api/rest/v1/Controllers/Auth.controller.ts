@@ -7,13 +7,13 @@ import AuthService from '@services/Auth/Auth.service';
 import logger from '../../../../config/logger';
 
 const login = async (loginData: AppReq, res: AppRes): Promise<void> => {
-    logger.info('Login request starts');
+    logger.info('Auth.controller: login request starts');
     const loginDetails = await AuthService.login(loginData.body as LoginReq);
     res.status(200).send(loginDetails);
 };
 
 const refreshToken = async (req: AppReq, res: AppRes): Promise<void> => {
-    logger.info('Refreshing access tokens');
+    logger.info('Auth.controller: refreshing access tokens');
     const newTokens = await AuthService.refreshToken(
         req?.body as RefreshTokenReq
     );

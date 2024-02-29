@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 import JwtMiddleware from '../../middleware/jwtMiddleware';
 import { PrismaClient } from '../../prisma/client';
 import { type Role } from '../../common/types/roles.type';
-
+import logger from '../../config/logger';
 const prisma = new PrismaClient();
 const login = async ({
     username,
@@ -28,6 +28,7 @@ const login = async ({
     });
 
     if (!userDetails) {
+        logger.error('AuthService.login: User not found');
         throw ExtendedError.of(
             'Username or password is invalid',
             StatusCodes.UNAUTHORIZED
@@ -79,6 +80,7 @@ const refreshToken = async (
     });
 
     if (!userDetails) {
+        logger.error('AuthService.refreshToken: User not found');
         throw ExtendedError.of('User not found', StatusCodes.UNAUTHORIZED);
     }
 

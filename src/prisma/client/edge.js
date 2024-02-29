@@ -126,7 +126,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/app/src/prisma/client",
+      "value": "C:\\Users\\Admin\\Documents\\Projects\\backend-learning\\node-js-auth-example\\src\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -135,7 +135,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "linux-musl-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
