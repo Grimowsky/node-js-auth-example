@@ -27,5 +27,13 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+      - name: Execute tests cases
+        run: npm run test:coverage
       - name: Build
         run: npm run -s build
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Grimowsky/node-js-auth-example
+

@@ -1,12 +1,14 @@
 {
+  "collectCoverage": true,
   "displayName": "Unit Tests",
   "roots": [
     "src/"
   ],
-  "collectCoverageFrom": ["scr/**/*.{js,ts}"],
+  "collectCoverageFrom": ["src/**/*.{js,ts}"],
   "testEnvironment": "node",
   "coveragePathIgnorePatterns": [
-    "/node_modules/"
+    "/node_modules/",
+    "/prisma/"
   ],
   "moduleFileExtensions": [
     "js",
@@ -18,7 +20,6 @@
   },
   "coverageReporters": [
     "json",
-    "json-summary",
     "lcov",
     "text",
     "clover"

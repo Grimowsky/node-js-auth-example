@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/Grimowsky/node-js-auth-example/graph/badge.svg?token=GCUGQUUEY6)](https://codecov.io/github/Grimowsky/node-js-auth-example)
+
 NodeJS Express JWT auth example
 
 ### Generate your Prisma client
