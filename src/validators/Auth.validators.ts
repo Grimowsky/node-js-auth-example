@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 const LoginSchema = z.object({
     body: z.object({
-        username: z.string().min(1),
-        password: z.string().min(1),
+        username: z.string().min(1, 'Minimum length for username is 1'),
+        password: z.string().min(1, 'Minimum length for password is 1'),
     }),
 });
 
