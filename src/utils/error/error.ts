@@ -17,3 +17,8 @@ export class ExtendedError extends Error {
         return { ...this, message: this.message };
     }
 }
+
+export interface ExtendedError {
+    message: string;
+    statusCode: number;
+}
