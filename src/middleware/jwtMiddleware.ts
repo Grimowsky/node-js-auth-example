@@ -75,9 +75,9 @@ const verifyAuthToken = async (
     const token = authHeader.split(' ')[1];
 
     if (!token) {
-        return res
-            .status(StatusCodes.UNAUTHORIZED)
-            .send({ message: 'Token is missing in the Authorization header' });
+        return res.status(StatusCodes.UNAUTHORIZED).send({
+            message: 'Authorization token is malformed',
+        });
     }
 
     await authenticateToken(req, res, next, { token });
