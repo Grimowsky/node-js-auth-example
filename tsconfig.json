@@ -15,6 +15,7 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
+    "types": ["@types/jest"],
     "paths": {
       "@controllers/*": ["./api/rest/v1/Controllers/*"],
       "@routes/*": ["./api/rest/v1/Routes/*"],

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import RegistrationController from '@controllers/RegistrationController';
+import RegistrationController from '@controllers/Registration.controller';
 import { asyncWrapper } from '../../../../middleware/asyncWrapper';
 import validateRequestMiddleware from '../../../../middleware/validateRequest';
 import RegisterSchemas from '../../../../validators/Register.validators';
