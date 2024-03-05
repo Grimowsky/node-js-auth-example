@@ -7,7 +7,11 @@ import { type User } from '@services/User/User.type';
 describe('RegistrationController', () => {
     it('should register a user', async () => {
         jest.spyOn(logger, 'info');
-        jest.spyOn(UserService, 'register').mockResolvedValueOnce({} as User);
+        jest.spyOn(UserService, 'register').mockResolvedValueOnce({
+            username: 'username',
+            email: 'email',
+            password: 'pass',
+        } satisfies User);
 
         const req = httpMocks.createRequest({
             method: 'POST',
