@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/prefer-nullish-coalescing': "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/return-await": "off",
+    "@typescript-eslint/prefer-ts-expect-error": "off",
   },
   settings: {
     "import/resolver": {
