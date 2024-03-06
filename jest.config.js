@@ -7,7 +7,12 @@ module.exports = {
     displayName: 'Unit Tests',
     collectCoverageFrom: ['src/**/*.{js,ts}'],
     testEnvironment: 'node',
-    coveragePathIgnorePatterns: ['/node_modules/', '/prisma/'],
+    coveragePathIgnorePatterns: [
+        '/node_modules/',
+        '/prisma/',
+        '/src/utils/tests/',
+        '/src/prismaClient.ts',
+    ],
     moduleFileExtensions: ['js', 'ts', 'tsx'],
     transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
