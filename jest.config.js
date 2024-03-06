@@ -25,4 +25,5 @@ module.exports = {
         prefix: '<rootDir>/src/',
     }),
     setupFilesAfterEnv: ['<rootDir>/src/utils/tests/prisma.ts'],
+    setupFiles: ['<rootDir>/testSetup.ts'],
 };
