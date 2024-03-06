@@ -1,35 +1,133 @@
+
+## Code analysis
 [![codecov](https://codecov.io/github/Grimowsky/node-js-auth-example/graph/badge.svg?token=GCUGQUUEY6)](https://codecov.io/github/Grimowsky/node-js-auth-example)
 
-NodeJS Express JWT auth example
+# Node-JS & Typescript Auth Example
 
-### Generate your Prisma client
+NodeJS & Typescript JTW Authentication boilerplate.
 
-Run the following command to generate the Prisma Client which will include types based on your database schema:
+## Tech Stack:
+- Express
+- Typescript
+- Prisma ORM
+- Jest for unit testing
+- Docker
+- Docker Compose
+- PostgreSQL
+- Zod
+- Winston Logger
 
-```shell
-npx prisma generate
+
+
+
+
+
+
+
+## Features
+
+- Registration flow:
+
+  ``` /registration/register ```
+- Authentication flow with refresh jwt token resource:
+
+  ``` /auth/login ```
+
+  ``` /auth/refresh-token ```
+####  Middlewares
+
+- Async middleware wrapper for controllers:
+
+  ``` asyncWrapper.ts ```
+
+- JWT middlewares:
+
+  ```jwtMiddleware.ts ```
+
+  ``` roleMiddleware.ts ```
+
+- Request validate middleware built on top of Zod:
+
+  ```  validateRequest.ts ```
+#### Logger:
+- Winston Logger:
+
+  ``` config/logger ```
+
+
+
+
+
+
+
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+note: postgresql on localhost has `POSTGRES_HOST_AUTH_METHOD=trust` flag, so no password locally is needed.
+
+`DATABASE_URL=postgresql://postgres:@localhost:5432/postgres?schema=public&connect_timeout=3000`
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Grimowsky/node-js-auth-example
 ```
 
-### Apply any SQL migration script
+Go to the project directory
 
-Run the following command to create/update your database based on existing sql migration scripts:
-
-```shell
-npx prisma migrate deploy
+```bash
+  cd node-js-auth-example
 ```
 
-### Run the project
+Install dependencies
 
-Run the following command to run the project:
-
-```shell
-npx nx serve api
+```bash
+  npm install
 ```
 
-### Seed the database
+### Start the server & seed database:
 
-The project includes a seed script to populate the database:
+Recommended way of starting locally is to use Docker Compose:
 
-```shell
-npx prisma db seed
+```bash
+    docker compose up
 ```
+
+#### Alternatively - with logs and force-rebuilding:
+
+```bash
+BUILDKIT_PROGRESS=plain docker compose up --build --force-recreate --renew-anon-volumes --remove-orphans
+```
+
+Please see ```package.json``` for other scripts and other ways of running locally
+
+#### Seed database
+
+Command (see package.json for refference) will migrate database schema and run seed.ts script from ```/prisma/seed.ts```
+
+```bash
+npm run prisma:populate
+```
+
+#### Note:
+As docker-compose has no postgresql volumes attached, you will need to run ```prisma:populate``` script every time you kill docker compose process
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
+
+To run test with code coverage report, run the following command:
+
+```bash
+  npm run test:coverage
+```
+
