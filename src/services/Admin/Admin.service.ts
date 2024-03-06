@@ -1,4 +1,4 @@
-import { type User } from '@services/Admin/User.type';
+import { type User, type SelectedUser } from '@services/Admin/User.type';
 import prisma from '../../prismaClient';
 import logger from '../../config/logger';
 
@@ -8,7 +8,10 @@ const getAllUsers = async (): Promise<User[]> => {
         select: { username: true, email: true, role: true },
     });
 
-    return users.map((user) => ({ ...user, role: user.role.name }));
+    return users.map((user: SelectedUser) => ({
+        ...user,
+        role: user.role.name,
+    }));
 };
 
 const adminService = { getAllUsers };
