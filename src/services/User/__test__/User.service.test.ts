@@ -1,8 +1,8 @@
 import userService from '@services/User/User.service';
 import { prismaMock } from '../../../utils/tests/prisma';
 import logger from '../../../config/logger';
-import { User } from '@services/User/User.type';
-import { ExtendedError } from '../../../utils/error/error';
+import { type User } from '@services/User/User.type';
+import { type ExtendedError } from '../../../utils/error/error';
 
 const user: User = {
     email: 'test@example.com',
@@ -17,7 +17,7 @@ describe('UserService', () => {
     it('should throw an error if user already exists', async () => {
         jest.spyOn(logger, 'error').mockImplementation(jest.fn());
 
-        //@ts-ignore we don't need to return entire user object
+        // @ts-ignore we don't need to return entire user object
         prismaMock.user.findUnique.mockResolvedValue(user);
 
         try {
@@ -34,7 +34,7 @@ describe('UserService', () => {
     it('should throw an error while role is not found', async () => {
         jest.spyOn(logger, 'error').mockImplementation(jest.fn());
 
-        //@ts-ignore we don't need to return entire user object
+        // @ts-ignore we don't need to return entire user object
         prismaMock.user.findUnique.mockResolvedValue(null);
 
         prismaMock.role.findFirstOrThrow.mockRejectedValue(
