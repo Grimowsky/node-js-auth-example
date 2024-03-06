@@ -8,10 +8,9 @@ import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
 import JwtMiddleware from '../../middleware/jwtMiddleware';
-import { PrismaClient } from '../../prisma/client';
+import prisma from '../../prismaClient';
 import { type Role } from '../../common/types/roles.type';
 import logger from '../../config/logger';
-const prisma = new PrismaClient();
 const login = async ({
     username,
     password,

@@ -2,10 +2,8 @@ import { type User } from '@services/User/User.type';
 import { ExtendedError } from '../../utils/error/error';
 import { StatusCodes } from 'http-status-codes';
 import * as bcrypt from 'bcrypt';
-import { PrismaClient } from '../../prisma/client';
+import prisma from '../../prismaClient';
 import logger from '../../config/logger';
-
-const prisma = new PrismaClient();
 
 const register = async (data: User): Promise<User> => {
     const user =
@@ -29,7 +27,7 @@ const register = async (data: User): Promise<User> => {
         password: await bcrypt.hash(data.password, 10),
     };
 
-    return await prisma.user.create({
+    return prisma.user.create({
         data: { ...userWithHashedPass, roleId: role.id },
     });
 };
