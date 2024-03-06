@@ -11,7 +11,7 @@ describe('AdminService', () => {
             },
         ];
 
-        // @ts-ignore - prisma mock does not know about selects in user findMany methods
+        // @ts-expect-error: prisma mock does not know about selects in user findMany methods
         prismaMock.user.findMany.mockResolvedValue(users);
 
         const result = await adminService.getAllUsers();

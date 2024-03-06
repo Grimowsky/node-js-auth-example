@@ -32,6 +32,7 @@ module.exports = {
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/prefer-ts-expect-error": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
   },
   settings: {
     "import/resolver": {
