@@ -29,7 +29,8 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     "@typescript-eslint/strict-boolean-expressions": "off",
     '@typescript-eslint/prefer-nullish-coalescing': "off",
-    "@typescript-eslint/no-misused-promises": "off"
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/return-await": "off",
   },
   settings: {
     "import/resolver": {
