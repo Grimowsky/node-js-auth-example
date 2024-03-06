@@ -12,6 +12,9 @@ module.exports = {
         '/prisma/',
         '/src/utils/tests/',
         '/src/prismaClient.ts',
+        '/src/index.ts',
+        '/src/app.ts',
+        '/src/config/',
     ],
     moduleFileExtensions: ['js', 'ts', 'tsx'],
     transform: {
