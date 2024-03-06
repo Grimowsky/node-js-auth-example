@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/prefer-ts-expect-error": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    '@typescript-eslint/consistent-type-imports': 'off',
   },
   settings: {
     "import/resolver": {
