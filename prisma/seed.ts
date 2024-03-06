@@ -1,7 +1,5 @@
-import { PrismaClient } from '../src/prisma/client';
+import prisma from '../src/prismaClient';
 import * as bcrypt from 'bcrypt';
-
-const prisma = new PrismaClient();
 
 const createRoles = async (): Promise<void> => {
     await prisma.role.createMany({

@@ -7,7 +7,12 @@ module.exports = {
     displayName: 'Unit Tests',
     collectCoverageFrom: ['src/**/*.{js,ts}'],
     testEnvironment: 'node',
-    coveragePathIgnorePatterns: ['/node_modules/', '/prisma/'],
+    coveragePathIgnorePatterns: [
+        '/node_modules/',
+        '/prisma/',
+        '/src/utils/tests/',
+        '/src/prismaClient.ts',
+    ],
     moduleFileExtensions: ['js', 'ts', 'tsx'],
     transform: {
         '^.+\\.(ts|tsx)$': 'ts-jest',
@@ -19,4 +24,5 @@ module.exports = {
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
         prefix: '<rootDir>/src/',
     }),
+    setupFilesAfterEnv: ['<rootDir>/src/utils/tests/prisma.ts'],
 };
