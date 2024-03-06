@@ -5,9 +5,63 @@ import type { ExtendedError } from '../../../utils/error/error';
 import jwtMiddleware from '../../../middleware/jwtMiddleware';
 import type { RefreshTokenReq } from '@services/Auth/Auth.type';
 
+// order of tests is important
+// i could not find a way to mock bcrypt compare test after test - it always returned me first mock value
+jest.mock('bcrypt', () => ({
+    compare: jest.fn().mockResolvedValueOnce(true),
+}));
 describe('AuthService.login tests', () => {
-    afterEach(() => {
-        jest.clearAllMocks();
+    it('should return token and refresh token', async () => {
+        jest.spyOn(jwtMiddleware, 'createToken').mockReturnValue('token');
+        jest.spyOn(jwtMiddleware, 'createRefreshToken').mockReturnValue(
+            'refreshToken'
+        );
+
+        const loginReq = {
+            username: 'test',
+            password: 'testPass',
+        };
+
+        prismaMock.user.findUnique.mockResolvedValue({
+            username: 'testuser',
+            password: 'testPass',
+            id: 1,
+            roleId: 1,
+            email: 'test@example.com',
+            role: {
+                // @ts-ignore
+                name: 'user',
+            },
+        });
+
+        const res = await authService.login(loginReq);
+
+        expect(res).toEqual({
+            token: 'token',
+            refreshToken: 'refreshToken',
+        });
+    });
+    it('should throw error when password is invalid', async () => {
+        const loginReq = {
+            username: 'test',
+            password: 'testPass',
+        };
+
+        prismaMock.user.findUnique.mockResolvedValue({
+            username: 'testuser',
+            password: 'testPass',
+            id: 1,
+            roleId: 1,
+            email: 'email@example.com',
+        });
+
+        try {
+            await authService.login(loginReq);
+        } catch (e) {
+            const err = e as ExtendedError;
+            expect(err.message).toBe('Username or Password is invalid');
+            expect(err.statusCode).toBe(401);
+        }
     });
     it('should throw error when user does not exist in database', async () => {
         jest.spyOn(logger, 'error').mockImplementation(jest.fn());
@@ -30,64 +84,12 @@ describe('AuthService.login tests', () => {
             'AuthService.login: User not found'
         );
     });
-    it('should throw error when password is invalid', async () => {
-        jest.mock('bcrypt', () => ({
-            compare: jest.fn().mockResolvedValue(false),
-        }));
-
-        const loginReq = {
-            username: 'test',
-            password: 'testPass',
-        };
-
-        prismaMock.user.findUnique.mockResolvedValue({
-            username: 'testuser',
-            password: 'testPass',
-            id: 1,
-            roleId: 1,
-            email: 'email@example.com',
-        });
-
-        try {
-            await authService.login(loginReq);
-        } catch (e) {
-            const err = e as ExtendedError;
-            expect(err.message).toBe('Username or Password is invalid');
-            expect(err.statusCode).toBe(401);
-        }
-    });
-    it('should return token and refresh token', async () => {
-        jest.mock('bcrypt', () => ({
-            compare: jest.fn().mockResolvedValue(true),
-        }));
-        jest.spyOn(jwtMiddleware, 'createToken').mockReturnValue('token');
-        jest.spyOn(jwtMiddleware, 'createRefreshToken').mockReturnValue(
-            'refreshToken'
-        );
-
-        const loginReq = {
-            username: 'test',
-            password: 'testPass',
-        };
-
-        prismaMock.user.findUnique.mockResolvedValue({
-            username: 'testuser',
-            password: 'testPass',
-            id: 1,
-            roleId: 1,
-            email: 'test@example.com',
-        });
-
-        const res = await authService.login(loginReq);
-
-        expect(res).toEqual({
-            token: 'token',
-            refreshToken: 'refreshToken',
-        });
-    });
 });
 
 describe('AuthService.refreshToken tests', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
     it('should throw error when user does not exist in database', async () => {
         jest.spyOn(logger, 'error').mockImplementation(jest.fn());
 

@@ -38,6 +38,7 @@ const login = async ({
         password,
         userDetails.password
     );
+
     if (!isValidPassword) {
         throw ExtendedError.of(
             'Username or Password is invalid',

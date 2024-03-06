@@ -10,6 +10,11 @@ const user: User = {
     password: 'password',
 };
 
+jest.mock('bcrypt', () => ({
+    ...jest.requireActual('bcrypt'),
+    hash: jest.fn().mockResolvedValue('hashedPassword'),
+}));
+
 describe('UserService', () => {
     afterEach(() => {
         jest.clearAllMocks();
